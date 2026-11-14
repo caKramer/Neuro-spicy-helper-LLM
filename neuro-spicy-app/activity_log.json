@@ -1,0 +1,42 @@
+[
+  {
+    "timestamp": "2026-10-17T20:57:01.872871",
+    "date_str": "2026-10-17",
+    "time_str": "08:57 PM",
+    "time": "08:57 PM",
+    "name": "physical therapy",
+    "duration": 15,
+    "intensity": "Gentle / Low Demand",
+    "sensory": "Calm & Quiet"
+  },
+  {
+    "timestamp": "2026-10-17T20:57:17.031549",
+    "date_str": "2026-10-17",
+    "time_str": "08:57 PM",
+    "time": "08:57 PM",
+    "name": "walking dogs",
+    "duration": 40,
+    "intensity": "Moderate",
+    "sensory": "Outdoors / Nature"
+  },
+  {
+    "timestamp": "2026-10-18T12:09:42.187234",
+    "date_str": "2026-10-18",
+    "time_str": "12:09 PM",
+    "name": "Woke Up",
+    "duration": 0,
+    "intensity": "N/A",
+    "sensory": "N/A",
+    "time": "12:09 PM"
+  },
+  {
+    "timestamp": "2026-10-18T12:11:10.963350",
+    "date_str": "2026-10-18",
+    "time_str": "12:11 PM",
+    "time": "12:11 PM",
+    "name": "walk",
+    "duration": 15,
+    "intensity": "Gentle / Low Demand",
+    "sensory": "Outdoors / Nature"
+  }
+]

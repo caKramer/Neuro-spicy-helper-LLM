@@ -1,0 +1,132 @@
+[
+  {
+    "id": "meal_2026-10-11T15:45:54.829708_Chicken_Quesadilla_",
+    "title": "\ud83c\udf7d\ufe0f Meal: Chicken Quesadilla ",
+    "start": "2026-10-11T15:45:00",
+    "end": "2026-10-11T16:15:00",
+    "date": "2026-10-11",
+    "allDay": false,
+    "backgroundColor": "#10B981",
+    "borderColor": "#047857"
+  },
+  {
+    "id": "act_2026-10-17T20:57:01.872871_physical_therapy",
+    "title": "\ud83e\uddd8 physical therapy (15m)",
+    "start": "2026-10-17T20:57:00",
+    "end": "2026-10-17T21:12:00",
+    "date": "2026-10-17",
+    "allDay": false,
+    "backgroundColor": "#8B5CF6",
+    "borderColor": "#6D28D9"
+  },
+  {
+    "id": "act_2026-10-17T20:57:17.031549_walking_dogs",
+    "title": "\ud83e\uddd8 walking dogs (40m)",
+    "start": "2026-10-17T20:57:00",
+    "end": "2026-10-17T21:37:00",
+    "date": "2026-10-17",
+    "allDay": false,
+    "backgroundColor": "#8B5CF6",
+    "borderColor": "#6D28D9"
+  },
+  {
+    "id": "meal_2026-10-17T20:57:24.879876_Glass_of_Water",
+    "title": "\ud83c\udf7d\ufe0f Drink: Glass of Water",
+    "start": "2026-10-17T20:57:00",
+    "end": "2026-10-17T21:27:00",
+    "date": "2026-10-17",
+    "allDay": false,
+    "backgroundColor": "#10B981",
+    "borderColor": "#047857"
+  },
+  {
+    "id": "meal_2026-10-17T20:57:29.419028_Glass_of_Water",
+    "title": "\ud83c\udf7d\ufe0f Drink: Glass of Water",
+    "start": "2026-10-17T20:57:00",
+    "end": "2026-10-17T21:27:00",
+    "date": "2026-10-17",
+    "allDay": false,
+    "backgroundColor": "#10B981",
+    "borderColor": "#047857"
+  },
+  {
+    "id": "meal_2026-10-17T20:57:43.011071_cheerios",
+    "title": "\ud83c\udf7d\ufe0f Breakfast: cheerios",
+    "start": "2026-10-17T20:57:00",
+    "end": "2026-10-17T21:27:00",
+    "date": "2026-10-17",
+    "allDay": false,
+    "backgroundColor": "#10B981",
+    "borderColor": "#047857"
+  },
+  {
+    "id": "91ff4e86-abb2-484d-a6d4-850c64ada1e1",
+    "title": "test",
+    "start": "2026-10-17T09:00:00",
+    "end": "2026-10-17T10:00:00",
+    "date": "2026-10-17",
+    "allDay": false,
+    "backgroundColor": "#6366F1",
+    "borderColor": "#4338CA"
+  },
+  {
+    "id": "act_2026-10-18T12:09:42.187234_Woke_Up",
+    "title": "\ud83e\uddd8 Woke Up (30m)",
+    "start": "2026-10-18T12:09:00",
+    "end": "2026-10-18T12:39:00",
+    "date": "2026-10-18",
+    "allDay": false,
+    "backgroundColor": "#8B5CF6",
+    "borderColor": "#6D28D9"
+  },
+  {
+    "id": "meal_2026-10-18T12:10:12.133652_Ramen_Noodles",
+    "title": "\ud83c\udf7d\ufe0f Meal: Ramen Noodles",
+    "start": "2026-10-18T12:10:00",
+    "end": "2026-10-18T12:40:00",
+    "date": "2026-10-18",
+    "allDay": false,
+    "backgroundColor": "#10B981",
+    "borderColor": "#047857"
+  },
+  {
+    "id": "med_2026-10-18T12:10:37.293581_test_med",
+    "title": "\ud83d\udc8a test med (10mg)",
+    "start": "2026-10-18T12:10:00",
+    "end": "2026-10-18T12:25:00",
+    "date": "2026-10-18",
+    "allDay": false,
+    "backgroundColor": "#3B82F6",
+    "borderColor": "#1D4ED8"
+  },
+  {
+    "id": "act_2026-10-18T12:11:10.963350_walk",
+    "title": "\ud83e\uddd8 walk (15m)",
+    "start": "2026-10-18T12:11:00",
+    "end": "2026-10-18T12:26:00",
+    "date": "2026-10-18",
+    "allDay": false,
+    "backgroundColor": "#8B5CF6",
+    "borderColor": "#6D28D9"
+  },
+  {
+    "id": "meal_2026-11-14T12:01:37.112544_Yogurt_Bowl_with_Granola",
+    "title": "\ud83c\udf7d\ufe0f Meal: Yogurt Bowl with Granola",
+    "start": "2026-11-14T12:01:00",
+    "end": "2026-11-14T12:31:00",
+    "date": "2026-11-14",
+    "allDay": false,
+    "backgroundColor": "#10B981",
+    "borderColor": "#047857"
+  },
+  {
+    "id": "67e4cbd4-266d-4453-8318-a2f9b86eb1b6",
+    "title": "Dog Training Class",
+    "start": "2026-11-14T09:30:00",
+    "end": "2026-11-14T10:30:00",
+    "date": "2026-11-14",
+    "allDay": false,
+    "backgroundColor": "#6366F1",
+    "borderColor": "#4338CA"
+  }
+]
