@@ -30,13 +30,13 @@ def load_events():
     for event in raw_events:
         start_str = str(event.get("start", ""))
 
-        # Guard against malformed start times missing the YYYY-MM-DD date prefix
+        # guard against malformed start times missing the YYYY-MM-DD date prefix
         if "T" not in start_str and len(start_str) < 10:
             stored_date = event.get("date") or event.get("date_str")
             if stored_date:
                 event["start"] = f"{stored_date}T{start_str}"
             else:
-                continue  # Drop events missing valid date context to prevent leaking onto today's view
+                continue  # drop events missing valid date context to prevent leaking onto today's view
 
         validated_events.append(event)
 
@@ -71,7 +71,7 @@ def _extract_item_date_and_time(item, default_time_str="12:00 PM"):
     Extracts explicit date (YYYY-MM-DD) and 24h formatted time (HH:MM:SS)
     from a logged item dictionary. Returns None for event_date if no valid date is recorded.
     """
-    # 1. Parse Date String strictly from recorded log attributes
+    # parse date string strictly from recorded log attributes
     raw_date = item.get("date_str") or item.get("date")
     if not raw_date and item.get("timestamp"):
         try:
@@ -81,7 +81,7 @@ def _extract_item_date_and_time(item, default_time_str="12:00 PM"):
 
     event_date = raw_date  # Do NOT fallback to datetime.now() for historical items
 
-    # 2. Parse Time String
+    # parse time string
     raw_time = (
             item.get("logged_at_time")
             or item.get("time")
@@ -126,7 +126,7 @@ def sync_daily_logs_to_calendar():
     existing_ids |= load_dismissed_sync_ids()
     updated = False
 
-    # 1. Sync Medication Events
+    # sync medication events
     if os.path.exists(MEDS_LOG_FILE):
         try:
             with open(MEDS_LOG_FILE, "r") as f:
@@ -169,7 +169,7 @@ def sync_daily_logs_to_calendar():
         except Exception:
             pass
 
-    # 2. Sync Meal Events
+    # sync meal events
     if os.path.exists(MEAL_LOG_FILE):
         try:
             with open(MEAL_LOG_FILE, "r") as f:
@@ -179,7 +179,7 @@ def sync_daily_logs_to_calendar():
                         e_date, e_time = _extract_item_date_and_time(meal,
                                                                      "12:00 PM")
 
-                        # Strict date check: skip if item is not from today or has no explicit date
+                        # date check- skip if item is not from today or has no explicit date
                         if e_date != today_str:
                             continue
 
@@ -209,7 +209,7 @@ def sync_daily_logs_to_calendar():
         except Exception:
             pass
 
-    # 3. Sync Activity Events
+    # sync activities 
     if os.path.exists(ACTIVITY_LOG_FILE):
         try:
             with open(ACTIVITY_LOG_FILE, "r") as f:

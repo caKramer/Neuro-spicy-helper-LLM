@@ -42,13 +42,13 @@ def render_meal_card(bg_color="#FFFFFF", text_color="#2C3E50"):
     today_str = datetime.now().strftime("%Y-%m-%d")
     all_meals = load_meal_log()
 
-    # Filter strictly for today's log entries
+    # filter strictly for today's log entries
     today_meals = [
         m for m in all_meals
         if m.get("date_str") == today_str or m.get("timestamp", "").startswith(today_str)
     ]
 
-    # Quick Log Water Button
+    # quick log water button
     if st.button("🥛 Quick Log Water", use_container_width=True, type="secondary"):
         log_meal_entry("Glass of Water", meal_type="Drink")
         st.toast("Logged 1 cup of water!")
@@ -64,7 +64,7 @@ def render_meal_card(bg_color="#FFFFFF", text_color="#2C3E50"):
             item_type = entry.get("type", "Meal")
             st.write(f"• **{item_time}** - {item_name} *({item_type})*")
 
-    # --- ADD MEAL FORM ---
+    # add meal form
     with st.form("add_meal_form", clear_on_submit=True):
         col1, col2 = st.columns(2)
         with col1:
@@ -87,7 +87,7 @@ def render_meal_card(bg_color="#FFFFFF", text_color="#2C3E50"):
 
     st.divider()
 
-    # --- LOGGED MEALS DISPLAY (FILTERED TO TODAY ONLY) ---
+    # show today's logged meals
     if today_meals:
         st.write(f"**Today's Logged Items ({len(today_meals)}):**")
         for idx, entry in enumerate(today_meals):

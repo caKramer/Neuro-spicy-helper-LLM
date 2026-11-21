@@ -42,7 +42,7 @@ def save_dashboard_layout(raw_layout):
 
     incoming_keys = {str(item.get("i")) for item in raw_layout if item.get("i")}
 
-    # GUARD: Ignore unmount signals or incomplete payloads during tab switches
+    # ignore unmount signals or incomplete payloads during tab switches
     if not EXPECTED_WIDGET_KEYS.issubset(incoming_keys):
         return
 
@@ -56,7 +56,7 @@ def save_dashboard_layout(raw_layout):
             "h": int(item.get("h", 4)),
         })
 
-    # Avoid redundant saves if positions haven't changed
+    # avoid redundant saves if positions haven't changed
     current = st.session_state.get("dashboard_layout", [])
     if clean_layout != current:
         st.session_state["dashboard_layout"] = clean_layout
@@ -77,11 +77,11 @@ def render_dashboard():
 
     current_layout = load_dashboard_layout()
 
-    # 2. Dynamic key forces React to render saved positions on tab return
+    # dynamic key forces React to render saved positions on tab return
     layout_signature = json.dumps(current_layout, sort_keys=True)
     frame_key = f"dashboard_frame_{abs(hash(layout_signature))}"
 
-    # 3. Render grid dashboard
+    # render grid dashboard
     with elements(frame_key):
         with dashboard.Grid(
             layout=current_layout,
@@ -90,7 +90,7 @@ def render_dashboard():
             rowHeight=60,
             draggableHandle=".drag-handle",
         ):
-            # Widget 1: Schedule / Calendar
+            # Schedule / Calendar
             with mui.Paper(
                 key="calendar_widget",
                 elevation=2,
@@ -104,7 +104,7 @@ def render_dashboard():
                 )
                 calendar_component.render_calendar()
 
-            # Widget 2: Medication Log
+            # Medication Log
             with mui.Paper(
                 key="medication_widget",
                 elevation=2,
@@ -118,7 +118,7 @@ def render_dashboard():
                 )
                 st.write("Medication logging interface.")
 
-            # Widget 3: Meal Tracker
+            # Meal Tracker
             with mui.Paper(
                 key="meal_widget",
                 elevation=2,

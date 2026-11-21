@@ -49,7 +49,7 @@ def render_medication_tracker():
 
     meds = load_medications()
 
-    # --- ADD NEW MEDICATION FORM ---
+    # add new med form
     with st.expander("➕ Add New Medication Schedule", expanded=False):
         with st.form("add_med_form", clear_on_submit=True):
             med_name = st.text_input("Medication Name", placeholder="e.g. Advil, Vitamin D")
@@ -76,7 +76,7 @@ def render_medication_tracker():
 
     st.divider()
 
-    # --- MEDICATION LIST AND LOGGING ---
+    # med list and logging
     if meds:
         st.write("**Today's Medications:**")
         for idx, med in enumerate(meds):

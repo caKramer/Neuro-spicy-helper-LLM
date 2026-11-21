@@ -18,7 +18,7 @@ from dashboard_component import init_dashboard_layout
 import requests
 from json_store import save_json
 
-# Page Configuration & Layout Init
+# page config & init
 init_dashboard_layout()
 st.set_page_config(page_title="Neuro-Spicy Support Assistant", layout="wide")
 
@@ -118,7 +118,7 @@ if "active_layout" not in st.session_state:
 if "user_name" not in st.session_state:
     st.session_state.user_name = settings.get("user_name", "")
 
-# (Re)load capacity on first run and whenever the date rolls over in a long-lived session
+# load/reload capacity on first run and whenever the date rolls over in a long-lived session
 if st.session_state.get("capacity_date") != _today():
     _capacity_state = load_capacity_state()
     st.session_state.capacity_date = _capacity_state["date"]
@@ -129,7 +129,7 @@ if st.session_state.get("capacity_date") != _today():
     st.session_state["water_slider"] = st.session_state.water_count
     save_capacity_state()
 
-# Streamlit drops slider state on runs that don't render them (e.g. the Settings tab)
+# Streamlit drops slider state on runs that don't render them 
 if "spoon_slider" not in st.session_state:
     st.session_state["spoon_slider"] = st.session_state.spoons_count
 if "water_slider" not in st.session_state:
@@ -143,11 +143,11 @@ def _clear_active_dialog():
     st.session_state.active_dialog = None
 
 
-# --- ONLY AUTOREFRESH ON MAIN PAGE, NOT INSIDE IFRAME TILES ---
+# autorefresh main page, not tiles
 if st.session_state.active_dialog is None and "embed_tile" not in st.query_params:
     st_autorefresh(interval=3000, key="dashboard_autorefresh")
 
-# --- AUTOMATIC HYDRATION SLIDER & METRIC SYNC ---
+# sync sliders
 _meal_log = meal.load_meal_log()
 _today_str = datetime.now().strftime("%Y-%m-%d")
 
@@ -168,11 +168,11 @@ elif _today_drinks != st.session_state.synced_drink_count:
     st.session_state.synced_drink_count = _today_drinks
     save_capacity_state()
 
-# Calendar Sync
+# sync calendar
 if hasattr(cal, "sync_end_of_day_summary_to_calendar"):
     cal.sync_end_of_day_summary_to_calendar()
 
-# --- QUERY PARAM ROUTER FOR EMBEDDED TILES ---
+# query param router for tiles
 query_params = st.query_params
 if "embed_tile" in query_params:
     tile_type = query_params["embed_tile"]
@@ -217,7 +217,7 @@ if "embed_tile" in query_params:
         bg = query_params.get("bg", "#FFFFFF")
         txt = query_params.get("txt", "#2C3E50")
 
-        # Auto-refresh loop inside meal iframe to pick up external file changes without reloading full window
+        # auto refresh loop
         st_autorefresh(interval=2000, key="meal_iframe_autorefresh")
 
         meal.render_meal_card(bg_color=bg, text_color=txt)
@@ -277,7 +277,7 @@ if "embed_tile" in query_params:
                 key="assistant_pill_selector",
             )
 
-        # Clear output when switching tabs
+        # clear output when switching tabs
         if selected_pill != st.session_state.get("last_selected_pill"):
             st.session_state["assistant_response"] = None
             st.session_state["last_selected_pill"] = selected_pill
@@ -286,12 +286,12 @@ if "embed_tile" in query_params:
             clean_sys = str(sys_prompt_text).strip()
             clean_usr = str(usr_prompt_text).strip()
 
-            # Safeguard: Prevent empty/corrupted string inputs from reaching Ollama
+            # prevent empty/corrupted string inputs from reaching Ollama
             if not clean_usr or len(clean_usr) < 2:
                 st.session_state["assistant_response"] = "Error: Please enter a valid prompt before generating."
                 return
 
-            # Construct explicit, raw Llama 3 header tokens
+            # construct explicit, raw Llama 3 header tokens
             formatted_raw_prompt = (
                 f"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\n"
                 f"{clean_sys}<|eot_id|>"
@@ -316,7 +316,7 @@ if "embed_tile" in query_params:
             }
 
             try:
-                # Target /api/generate instead of /api/chat
+                # target /api/generate instead of /api/chat
                 res = requests.post("http://127.0.0.1:11434/api/generate", json=payload, timeout=30)
                 if res.status_code == 200:
                     res_json = res.json()
@@ -327,9 +327,7 @@ if "embed_tile" in query_params:
             except Exception as e:
                 st.session_state["assistant_response"] = f"Connection Error: {str(e)}"
 
-        # ----------------------------------------------------
-        # 1. FOOD OPTIONS MODE
-        # ----------------------------------------------------
+        # food options mode
         if selected_pill == "Food Options":
             current_spoons = st.session_state.get("spoons_count", 2)
             default_energy_label, _ = get_energy_from_spoons(current_spoons)
@@ -361,9 +359,7 @@ if "embed_tile" in query_params:
                     run_ollama_generation(sys_p, usr_p, temp_val=0.2)
                     st.rerun()
 
-        # ----------------------------------------------------
-        # 2. TASK BREAKDOWN MODE
-        # ----------------------------------------------------
+        # task breakdown
         elif selected_pill == "Task Breakdown":
             st.caption("Enter a task causing executive paralysis. The assistant will split it into ≤3 tiny steps.")
             task_desc_input = st.text_input(
@@ -380,9 +376,7 @@ if "embed_tile" in query_params:
                     run_ollama_generation(sys_p, usr_p, temp_val=0.2)
                     st.rerun()
 
-        # ----------------------------------------------------
-        # 3. CHAT HELP WITH OVERWHELM MODE
-        # ----------------------------------------------------
+        # chat help overwhelm
         elif selected_pill == "Chat Help with Overwhelm":
             st.caption("Use this when overstimulated or in a brain freeze.")
             overwhelm_text_input = st.text_area(
@@ -399,9 +393,7 @@ if "embed_tile" in query_params:
                     run_ollama_generation(sys_p, usr_p, temp_val=0.3)
                     st.rerun()
 
-        # ----------------------------------------------------
-        # 4. CUSTOM PROMPT INPUT MODE
-        # ----------------------------------------------------
+        # custom prompt
         elif selected_pill == "Custom Prompt Input":
             custom_sys_input = st.text_area(
                 "System Prompt:",
@@ -420,9 +412,7 @@ if "embed_tile" in query_params:
                     run_ollama_generation(custom_sys_input, custom_usr_input, temp_val=custom_temp_input)
                     st.rerun()
 
-        # ----------------------------------------------------
-        # PERSISTENT RENDER LOGIC
-        # ----------------------------------------------------
+        # persistent render logic
         saved_result = st.session_state.get("assistant_response")
 
         if saved_result:
@@ -441,7 +431,7 @@ if "embed_tile" in query_params:
                 st.success("**Assistant Response:**")
                 st.write(saved_result)
 
-                # Parse bold items into interactive meal buttons (food suggestions only)
+                # parse bold items into interactive meal buttons (food suggestions only)
                 bold_matches = []
                 if selected_pill == "Food Options":
                     bold_matches = re.findall(r'\d+\.\s*\*\*([^*]+)\*\*', saved_result)
@@ -460,7 +450,7 @@ if "embed_tile" in query_params:
 
     st.stop()
 
-# --- SIDEBAR: USER PROFILE & STYLE CONTROLS ---
+# sidebar- controls
 st.sidebar.title("👤 User Profile")
 name_input = st.sidebar.text_input(
     "Enter your name:",
@@ -512,7 +502,7 @@ if st.sidebar.button("💾 Save Style Preferences", use_container_width=True):
     st.sidebar.success("Preferences saved!")
     st.rerun()
 
-# --- TOP NAVIGATION BAR ---
+# top nav bar
 selected_tab = option_menu(
     menu_title=None,
     options=["Dashboard", "Settings"],
@@ -525,7 +515,7 @@ selected_tab = option_menu(
     },
 )
 
-# --- DYNAMIC USER TITLE ---
+# dynamic title
 if st.session_state.user_name.strip():
     user = st.session_state.user_name.strip()
     title_text = f"{user}' Daily Dashboard" if user.endswith("s") else f"{user}'s Daily Dashboard"
@@ -546,7 +536,7 @@ with sleep_col:
         sleep_time = act.log_wake_sleep_event("Went to Sleep")
         st.toast(f"Sleep time logged at {sleep_time.strftime('%I:%M %p')}!")
 
-# --- TOP TRACKERS HEADER (SHADCN UI INTEGRATION) ---
+# top trackers
 if selected_tab == "Dashboard":
     col1, col2, col3, col4, col5 = st.columns(5)
 
@@ -712,7 +702,7 @@ if selected_tab == "Dashboard":
     persist_layout_from_frontend()
     layout_to_render = st.session_state["active_layout"]
 
-    # --- DRAGGABLE & RESIZABLE DASHBOARD CANVAS ---
+    # draggable and re-sizeable canvas
     with elements("dashboard_canvas"):
         html.style(
             """
@@ -734,7 +724,7 @@ if selected_tab == "Dashboard":
             draggableHandle=".drag-handle",
             onLayoutChange=handle_layout_change,
         ):
-            # Calendar Widget
+            # calendar 
             with mui.Card(
                 key="calendar",
                 sx={
@@ -760,7 +750,7 @@ if selected_tab == "Dashboard":
                     style={"width": "100%", "height": "100%", "border": "none", "flex": 1},
                 )
 
-            # Physical Activity Widget
+            # activity
             with mui.Card(
                 key="activity",
                 sx={
@@ -785,7 +775,7 @@ if selected_tab == "Dashboard":
                     style={"width": "100%", "height": "100%", "border": "none", "flex": 1},
                 )
 
-            # Meal Tracker Widget
+            # meal tracker
             with mui.Card(
                 key="meal",
                 sx={
@@ -811,7 +801,7 @@ if selected_tab == "Dashboard":
                     style={"width": "100%", "height": "100%", "border": "none", "flex": 1},
                 )
 
-            # Decision Assistant Widget
+            # decision assistant 
             with mui.Card(
                 key="foods",
                 sx={

@@ -63,7 +63,7 @@ def render_activity_card(bg_color="#FFFFFF", text_color="#2C3E50"):
             dur = f" ({entry.get('duration')} mins)" if entry.get("duration") else ""
             st.write(f"• **{act_time}** - {act_name}{dur}")
 
-    # --- ADD ACTIVITY FORM ---
+    # add activity form
     with st.form("add_activity_form", clear_on_submit=True):
         col1, col2 = st.columns(2)
         with col1:
@@ -92,7 +92,7 @@ def render_activity_card(bg_color="#FFFFFF", text_color="#2C3E50"):
 
     st.divider()
 
-    # --- LOGGED ACTIVITIES DISPLAY (FILTERED TO TODAY ONLY) ---
+    # display logged activities for today only
     if today_activities:
         st.write(f"**Today's Logged Movement ({len(today_activities)}):**")
         for idx, entry in enumerate(today_activities):
