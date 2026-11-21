@@ -52,6 +52,4 @@ ollama run llama3.2-3b-ft
 ```
   - pip install requirements.txt
   - run app with  `streamlit run app.py`
-- Run in Jupyter lab
-  - pull near-spicyHelper Jupyter notebook & run
 
